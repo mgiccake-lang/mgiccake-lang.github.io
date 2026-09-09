@@ -1,9 +1,9 @@
-/* V2.3 — centered avatar, experience-first structure */
+/* V2.4 — centered avatar, experience-first structure, three-column project cards */
 .hero{padding-top:112px;padding-bottom:50px;min-height:auto;text-align:center}
 .hero-main{display:flex;flex-direction:column;align-items:center;max-width:760px;margin:0 auto}
 .hero .section-label{margin-bottom:18px}
-.hero-avatar{width:168px;height:168px;margin:0 auto 22px;border-radius:50%;overflow:hidden;border:1px solid rgba(28,28,24,.10);background:rgba(255,255,255,.5);box-shadow:0 14px 38px rgba(52,48,41,.05)}
-.hero-avatar img{width:100%;height:100%;display:block;object-fit:cover;transform:scale(1.02)}
+.hero-avatar{width:168px;height:168px;margin:0 auto 22px;border-radius:50%;overflow:hidden;border:1px solid rgba(28,28,24,.10);background:rgba(255,255,255,.58);box-shadow:0 14px 38px rgba(52,48,41,.05)}
+.hero-avatar img{width:100%;height:100%;display:block;object-fit:cover}
 .hero-copy{display:flex;flex-direction:column;align-items:center}
 .hero-identity{display:block;margin:0 0 18px}
 .hero-identity span{display:block;font-family:var(--serif);font-size:clamp(30px,3vw,40px);letter-spacing:-.02em;line-height:1.1;margin-bottom:7px}
@@ -19,6 +19,10 @@
 .hero-wash{opacity:.26}
 .wash-lilac{width:250px;height:250px;left:10%;top:210px}
 .wash-sage{width:300px;height:300px;right:9%;top:235px}
+
+/* Section headers without explanatory copy */
+.module-head-single{display:block;margin-bottom:38px}
+.module-head-single>div{max-width:none}
 
 /* Experience */
 .experience-stack{border-top:1px solid var(--line)}
@@ -36,30 +40,41 @@
 .role-results{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
 .role-results span{font-size:10px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.34)}
 
-/* Projects as detailed expansion of Experience */
-.case-study-list{border-top:1px solid var(--line)}
-.case-study{display:grid;grid-template-columns:52px minmax(0,1fr) 150px;gap:30px;align-items:start;padding:38px 0;border-bottom:1px solid var(--line);cursor:pointer;transition:transform .25s ease,opacity .25s ease}
-.case-study:hover{transform:translateX(4px)}
-.case-no{font-family:var(--serif);font-size:24px;color:var(--muted)}
-.case-kicker{font-size:9px;letter-spacing:.13em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
-.case-main h3{font-family:var(--serif);font-size:clamp(28px,3vw,40px);font-weight:400;line-height:1.12;letter-spacing:-.025em;margin:0 0 24px;max-width:780px}
-.case-detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
-.case-detail-grid>div{padding:18px 18px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
-.case-detail-grid h4{font-size:10px;letter-spacing:.1em;margin:0 0 8px;text-transform:uppercase}
-.case-detail-grid p{font-size:12px;color:var(--muted);line-height:1.7;margin:0}
-.case-impact{font-family:var(--serif);font-size:30px;font-weight:400;text-align:right;white-space:nowrap;padding-top:18px}
+/* Projects: three parallel cards */
+.project-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+.project-card{display:flex;flex-direction:column;min-height:100%;position:relative}
+.project-card .case-image{height:185px}
+.project-card .case-content{display:flex;flex-direction:column;flex:1;padding:24px}
+.project-card .case-top{align-items:flex-start}
+.project-card .case-top b{font-size:22px;white-space:nowrap}
+.project-card .case-content h3{font-size:25px;line-height:1.15;margin:22px 0 12px}
+.project-summary{min-height:68px}
+.project-card .tags{margin:18px 0 20px}
+.project-card .case-link{margin-top:auto;align-self:flex-end;border-bottom:0;display:inline-flex;align-items:center;gap:8px;padding:8px 0;font-size:11px;letter-spacing:.04em}
+.project-card .case-link span{display:inline-block;transition:transform .2s ease}
+.project-card:hover .case-link span{transform:translateX(4px)}
+
+/* Slide-out case detail drawer */
+.case-modal{display:block!important;visibility:hidden;pointer-events:none;opacity:0;transition:opacity .25s ease,visibility 0s linear .35s}
+.case-modal.is-open{visibility:visible;pointer-events:auto;opacity:1;transition:opacity .25s ease}
+.modal-backdrop{opacity:0;transition:opacity .28s ease}
+.case-modal.is-open .modal-backdrop{opacity:1}
+.modal-panel{display:block!important;transform:translateX(calc(100% + 36px));opacity:.98;transition:transform .38s cubic-bezier(.22,.72,.22,1);box-shadow:-24px 0 70px rgba(31,31,29,.08)}
+.case-modal.is-open .modal-panel{transform:translateX(0)}
 
 /* Personal section: text only */
 .personal-modules{display:none!important}
 #about .module-head{margin-bottom:0}
 
+@media(max-width:1000px){
+  .project-card-grid{grid-template-columns:1fr 1fr}
+  .project-card:last-child{grid-column:1/-1}
+}
+
 @media(max-width:900px){
   .experience-role{grid-template-columns:1fr;gap:24px}
   .role-grid{grid-template-columns:1fr}
   .role-grid.compact{grid-template-columns:1fr}
-  .case-study{grid-template-columns:42px 1fr}
-  .case-impact{grid-column:2;text-align:left;padding-top:0}
-  .case-detail-grid{grid-template-columns:1fr}
 }
 
 @media(max-width:760px){
@@ -74,8 +89,9 @@
   .experience-role{padding:30px 0}
   .role-meta b{font-size:22px}
   .role-grid>div{padding:18px}
-  .case-study{grid-template-columns:1fr;gap:12px;padding:30px 0}
-  .case-no{font-size:18px}
-  .case-impact{grid-column:1;font-size:26px}
-  .case-main h3{font-size:28px}
+  .project-card-grid{grid-template-columns:1fr}
+  .project-card:last-child{grid-column:auto}
+  .project-card .case-image{height:165px}
+  .project-summary{min-height:auto}
+  .modal-panel{right:10px;top:10px;bottom:10px;width:calc(100vw - 20px);padding:34px 24px}
 }
