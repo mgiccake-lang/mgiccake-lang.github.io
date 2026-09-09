@@ -24,6 +24,11 @@
 .hero-wash{opacity:.32}
 .wash-lilac{width:260px;height:260px;left:8%;top:220px}
 .wash-sage{width:320px;height:320px;right:7%;top:250px}
+
+/* Personal section: text only */
+.personal-modules{display:none!important}
+#about .module-head{margin-bottom:0}
+
 @media(max-width:760px){
   .hero{padding-top:104px;padding-bottom:44px}
   .hero-identity span{font-size:32px}
