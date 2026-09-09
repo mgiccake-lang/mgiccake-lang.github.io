@@ -1,34 +1,20 @@
+const revealItems=document.querySelectorAll('.reveal');
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');observer.unobserve(e.target)}}),{threshold:.12});
+revealItems.forEach(el=>observer.observe(el));
+
 const menuBtn=document.querySelector('.menu-btn');
 const mobileNav=document.querySelector('.mobile-nav');
-menuBtn?.addEventListener('click',()=>{const open=mobileNav.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open));});
-mobileNav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobileNav.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');}));
-
-const revealObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target);}})},{threshold:.12,rootMargin:'0px 0px -40px'});
-document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
-
-const pathLine=document.querySelector('.path-line');
-if(pathLine){new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('animate')}),{threshold:.4}).observe(pathLine)}
-
-const sections=[...document.querySelectorAll('main section[id]')];
-const navLinks=[...document.querySelectorAll('.desktop-nav a')];
-const sectionObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+entry.target.id));}})},{rootMargin:'-42% 0px -48% 0px'});
-sections.forEach(s=>sectionObserver.observe(s));
-
-const glow=document.querySelector('.cursor-glow');
-window.addEventListener('pointermove',e=>{if(!glow)return;glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px';},{passive:true});
+menuBtn?.addEventListener('click',()=>{const open=mobileNav.classList.toggle('is-open');menuBtn.setAttribute('aria-expanded',String(open))});
+mobileNav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobileNav.classList.remove('is-open');menuBtn?.setAttribute('aria-expanded','false')}));
 
 const cases={
-  'research-type':{kicker:'01 / RESEARCH SYSTEM',title:'研究类型识别：从模糊判断到可验证规则',html:`<h3>Problem</h3><p>研究类型判断存在大量边界情况，单靠人工经验难以形成稳定、一致、可批量验证的输出。</p><h3>What I did</h3><ul><li>拆解研究设计边界与高频误判场景</li><li>构建关键词规则与优先级策略</li><li>通过 Python 脚本批量测试结果</li><li>对误判样本做问题归因并持续修正规则</li></ul><h3>Outcome</h3><p>相关模块上线后，研究类型判断准确率由约 50% 提升至 80%。</p>`},
-  'table-extraction':{kicker:'02 / DATA WORKFLOW',title:'复杂医学表格自动提取',html:`<h3>Problem</h3><p>不同文献中的表格结构、字段命名和数据口径不一致，人工整理重复且容易产生格式差异。</p><h3>What I did</h3><ul><li>参与字段映射和提取规则设计</li><li>明确标准化输出格式</li><li>针对异常结果进行核查与反馈</li><li>支持跨文献数据进入统一分析表</li></ul><h3>Outcome</h3><p>方案上线后，数据提取效率提升约 25%。</p>`},
-  'ai-skills':{kicker:'03 / AI WORKFLOW',title:'科研流程 AI Skill 化',html:`<h3>Problem</h3><p>既有科研流程要交给 AI 执行，不能只看“能否生成结果”，还需要明确规则、测试真实任务，并判断错误来自哪里。</p><h3>What I did</h3><ul><li>把业务流程拆成可重复执行的 Skill</li><li>使用真实科研任务进行测试</li><li>记录错误类型并进行问题归因</li><li>根据结果迭代 Prompt、规则和输出标准</li></ul><h3>Outcome</h3><p>累计完成 10+ 医学科研类 AI Skill 的测试、问题归因与优化。</p>`}
+  'research-type':{index:'01 / RESEARCH SYSTEM',title:'研究类型识别：从模糊判断到可验证规则',body:`<h3>Problem</h3><p>研究类型判断依赖经验，边界不清，输出稳定性不足。</p><h3>What I did</h3><p>我把研究设计边界拆成关键词、优先级与过滤规则，再通过 Python 批量测试结果，定位误判类型并持续调整。</p><h3>Outcome</h3><p>相关模块判断准确率由约 50% 提升至 80%，同时沉淀出可复用的判断逻辑与测试方法。</p>`},
+  'table-extraction':{index:'02 / DATA WORKFLOW',title:'复杂医学表格自动提取',body:`<h3>Problem</h3><p>不同文献中的复杂表格结构差异明显，人工整理成本高，也容易出现字段不一致。</p><h3>What I did</h3><p>我参与字段映射、提取规则和标准化输出格式设计，并通过结果核查持续修正规则。</p><h3>Outcome</h3><p>上线后数据提取效率提升约 25%，跨文献数据可以更稳定地进入后续分析流程。</p>`},
+  'ai-skills':{index:'03 / AI WORKFLOW',title:'科研流程 AI Skill 化',body:`<h3>Problem</h3><p>科研流程步骤多、任务差异大，仅依靠 Prompt 很难稳定覆盖真实工作场景。</p><h3>What I did</h3><p>我把既有业务流程拆成可重复执行的 AI Skill，通过真实任务测试、错误归因、规则修正与再次验证建立测试闭环。</p><h3>Outcome</h3><p>累计完成 10+ 医学科研类 Skill 的测试与优化，覆盖文献过滤、研究类型判断、数据提取和结果标准化等任务。</p>`}
 };
-const drawer=document.querySelector('.case-drawer');
-const title=document.querySelector('#drawer-title');
-const kicker=document.querySelector('#drawer-kicker');
-const body=document.querySelector('#drawer-body');
-function openCase(key){const data=cases[key];if(!data||!drawer)return;kicker.textContent=data.kicker;title.textContent=data.title;body.innerHTML=data.html;drawer.classList.add('open');drawer.setAttribute('aria-hidden','false');document.body.classList.add('drawer-open');document.querySelector('.drawer-close')?.focus();}
-function closeCase(){drawer?.classList.remove('open');drawer?.setAttribute('aria-hidden','true');document.body.classList.remove('drawer-open');}
-document.querySelectorAll('[data-case]').forEach(card=>{card.addEventListener('click',()=>openCase(card.dataset.case));card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openCase(card.dataset.case);}})});
-document.querySelector('.drawer-close')?.addEventListener('click',closeCase);
-document.querySelector('.drawer-backdrop')?.addEventListener('click',closeCase);
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCase();});
+const modal=document.querySelector('.case-modal');
+const openModal=id=>{const data=cases[id];if(!data||!modal)return;modal.querySelector('.modal-index').textContent=data.index;modal.querySelector('h2').textContent=data.title;modal.querySelector('.modal-body').innerHTML=data.body;modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'};
+const closeModal=()=>{modal?.classList.remove('is-open');modal?.setAttribute('aria-hidden','true');document.body.style.overflow=''};
+document.querySelectorAll('[data-case]').forEach(card=>{card.addEventListener('click',e=>{if(e.target.closest('button')||e.currentTarget===card)openModal(card.dataset.case)});card.addEventListener('keydown',e=>{if(e.key==='Enter')openModal(card.dataset.case)})});
+document.querySelectorAll('[data-close-modal]').forEach(el=>el.addEventListener('click',closeModal));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
