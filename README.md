@@ -1,4 +1,4 @@
-# Ma Yue — Personal Portfolio
+# Valerie — Personal Portfolio
 
 A minimal, editorial-style one-page personal portfolio built with plain HTML, CSS and JavaScript.
 
