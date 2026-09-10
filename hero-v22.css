@@ -2,7 +2,7 @@
 .hero{padding-top:112px;padding-bottom:50px;min-height:auto;text-align:center}
 .hero-main{display:flex;flex-direction:column;align-items:center;max-width:760px;margin:0 auto}
 .hero .section-label{margin-bottom:18px}
-.hero-avatar{width:168px;height:168px;margin:0 auto 22px;border-radius:50%;overflow:hidden;border:1px solid rgba(28,28,24,.10);background-color:rgba(255,255,255,.58);background-image:url('assets/avatar-valerie.webp?v=20260910-2');background-size:cover;background-position:center;background-repeat:no-repeat;box-shadow:0 14px 38px rgba(52,48,41,.05)}
+.hero-avatar{width:168px;height:168px;margin:0 auto 22px;border-radius:50%;overflow:hidden;border:1px solid rgba(28,28,24,.10);background-color:rgba(255,255,255,.58);background-image:url('assets/avatar-valerie-final.webp?v=20260910-4');background-size:cover;background-position:center;background-repeat:no-repeat;box-shadow:0 14px 38px rgba(52,48,41,.05)}
 .hero-avatar img{display:none!important}
 .hero-copy{display:flex;flex-direction:column;align-items:center}
 .hero-identity{display:block;margin:0 0 18px}
